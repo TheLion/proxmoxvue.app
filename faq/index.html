@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — ProxmoxVue</title>
+<meta name="description" content="Frequently asked questions about ProxmoxVue, the native iPad app for Proxmox VE.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="canonical" href="https://proxmoxvue.app/faq/">
+<link rel="alternate" hreflang="en" href="https://proxmoxvue.app/faq/">
+<link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/faq/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg-base: #0a0b10; --bg-raised: #13141b; --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.09); --text: #e4e2dc; --text-muted: #8c8a84;
+    --text-dim: rgba(228,226,220,0.4); --amber: #e57000; --amber-bright: #ff8c28;
+    --amber-glow: rgba(229,112,0,0.12); }
+  html, body { min-height: 100vh; background: var(--bg-base); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+  body::after { content: ''; position: fixed; top: -300px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  .top-nav { font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; }
+  .top-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .top-nav a:hover { color: var(--amber-bright); }
+  .top-nav .home { color: var(--text); }
+  .top-nav .home::before { content: '← '; color: var(--amber-bright); }
+  h1 { font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--amber-bright); }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
+  details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; transition: border-color 0.15s; }
+  details[open] { border-color: var(--amber); }
+  summary { cursor: pointer; padding: 18px 22px; font-weight: 600; font-size: 15px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font-family: 'JetBrains Mono', monospace; color: var(--amber-bright); font-size: 20px; font-weight: 300; transition: transform 0.2s; }
+  details[open] summary::after { content: '−'; }
+  .answer { padding: 0 22px 20px; color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+  .answer p { margin-bottom: 12px; } .answer p:last-child { margin-bottom: 0; }
+  .answer code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--bg-raised); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); color: var(--text); }
+  a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--amber-bright); }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="top-nav"><a href="/" class="home">Home</a><a href="/nl/faq/">NL</a></nav>
+
+  <h1><span>Frequently</span> Asked</h1>
+  <p class="meta">Last updated: 19 April 2026</p>
+
+  <details>
+    <summary>Which Proxmox versions are supported?</summary>
+    <div class="answer">
+      <p>Proxmox VE 7.x and 8.x are the tested targets. The app uses standard REST endpoints (<code>/api2/json/...</code>) that have been stable for years. If something breaks on a specific minor release, file it on support.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Does the app work with a cluster or only a single node?</summary>
+    <div class="answer">
+      <p>Both. The app queries <code>/cluster/resources</code> which returns all nodes, VMs, containers, and storages. Single-node installs look the same as a one-node cluster.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do I need a backend, a relay, or an account?</summary>
+    <div class="answer">
+      <p>No. ProxmoxVue talks directly to your Proxmox server's REST API. No account with us, no cloud relay, no third-party signup. Your iPad is the client, your Proxmox is the server. That's it.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I log in?</summary>
+    <div class="answer">
+      <p>Three ways, pick what matches your setup:</p>
+      <p><strong>Username + password + realm</strong> — same as the Proxmox web UI. Use PAM, PVE, LDAP, or AD.</p>
+      <p><strong>OIDC</strong> — if your realm is Authentik, Keycloak, or any other OpenID Connect provider, the app opens your browser for the login and catches the callback. You need to allow <code>proxmoxvue-auth://callback</code> as a redirect URI in your provider.</p>
+      <p><strong>API Token</strong> — classic scoped tokens. Toggle "Use API-token instead" in the add-host screen.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>My Proxmox uses a self-signed certificate. Will it work?</summary>
+    <div class="answer">
+      <p>Yes. Flip the "Accept self-signed TLS" toggle when adding the host. The app disables certificate validation <em>for that host only</em> — other hosts are still validated.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Where are my credentials stored?</summary>
+    <div class="answer">
+      <p>In the iOS <strong>Keychain</strong>, which is:</p>
+      <p>— encrypted at rest by the OS,<br>— only accessible when the device is unlocked,<br>— never synced to iCloud,<br>— scoped to this app only.</p>
+      <p>OIDC session tickets are held <em>in memory</em> only — never persisted. A fresh browser login is required if the ticket expires.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Why is the app iPad-first?</summary>
+    <div class="answer">
+      <p>The iPhone market has several Proxmox apps. The iPad doesn't. We thought that was a gap worth filling: a proper three-column split view, long-press context menus, big tap targets — a touch-native tool designed for the size, not a phone UI stretched to 11&thinsp;inches. An iPhone companion is on the roadmap (push notifications, widgets, quick actions) but won't ship as a full management tool.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Will there be a Mac version?</summary>
+    <div class="answer">
+      <p>No. The Proxmox web UI on a desktop is good enough; a Mac app would add too little to justify the build cost.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Is the source open?</summary>
+    <div class="answer">
+      <p>Not at this time. We may reconsider later.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I report a bug?</summary>
+    <div class="answer">
+      <p><a href="/support/">See the support page</a> — we read everything.</p>
+    </div>
+  </details>
+
+  <p style="margin-top: 60px; font-family: 'JetBrains Mono', monospace; font-size: 13px;"><a href="/">← Back to ProxmoxVue</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — ProxmoxVue</title>
+<meta name="description" content="Hulp bij ProxmoxVue. Bug-rapporten, feature-verzoeken en algemene vragen.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="canonical" href="https://proxmoxvue.app/nl/support/">
+<link rel="alternate" hreflang="en" href="https://proxmoxvue.app/support/">
+<link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/support/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg-base: #0a0b10; --bg-raised: #13141b; --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.09); --text: #e4e2dc; --text-muted: #8c8a84;
+    --text-dim: rgba(228,226,220,0.4); --amber: #e57000; --amber-bright: #ff8c28;
+    --amber-glow: rgba(229,112,0,0.12); }
+  html, body { min-height: 100vh; background: var(--bg-base); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+  body::after { content: ''; position: fixed; top: -300px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .container { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+  .top-nav { font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; }
+  .top-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .top-nav a:hover { color: var(--amber-bright); }
+  .top-nav .home { color: var(--text); }
+  .top-nav .home::before { content: '← '; color: var(--amber-bright); }
+  h1 { font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--amber-bright); }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
+  h2 { font-size: 19px; font-weight: 600; margin: 36px 0 12px; }
+  h2::before { content: '// '; color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; }
+  p { margin-bottom: 16px; font-size: 15px; }
+  ul { margin: 0 0 16px; padding-left: 22px; } li { margin-bottom: 8px; font-size: 15px; }
+  a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--amber-bright); }
+  strong { color: var(--text); font-weight: 600; }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg-raised); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .contact-card { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 8px; padding: 20px; margin: 28px 0; }
+  .contact-card .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--amber); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .contact-card .val { font-size: 17px; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="top-nav"><a href="/nl/" class="home">Home</a><a href="/support/">EN</a></nav>
+
+  <h1><span>Support</span></h1>
+  <p class="meta">Laatst bijgewerkt: 19 april 2026</p>
+
+  <p>Een vraag, een bug, of een feature-verzoek? Mail ons.</p>
+
+  <div class="contact-card">
+    <div class="lbl">E-mail</div>
+    <div class="val"><a href="mailto:support@proxmoxvue.app">support@proxmoxvue.app</a></div>
+  </div>
+
+  <h2>Voor je mailt</h2>
+  <p>Check eerst de <a href="/nl/faq/">FAQ</a> &mdash; die dekt authenticatie, self-signed TLS, versies en roadmap-vragen.</p>
+
+  <h2>Een bug melden</h2>
+  <p>Neem zo veel mogelijk van het volgende mee:</p>
+  <ul>
+    <li><strong>Wat je deed</strong> &mdash; de stappen die het probleem veroorzaakten.</li>
+    <li><strong>Wat je verwachtte</strong> &mdash; en wat er daadwerkelijk gebeurde.</li>
+    <li><strong>App-versie + build</strong> &mdash; onderaan Instellingen &rarr; Over.</li>
+    <li><strong>iPadOS-versie</strong> &mdash; Instellingen &rarr; Algemeen &rarr; Info op je iPad.</li>
+    <li><strong>Proxmox VE-versie</strong> &mdash; bv. <code>8.2.7</code>.</li>
+    <li><strong>Auth-methode</strong> &mdash; API-token, gebruikersnaam + wachtwoord, of OIDC (met providernaam).</li>
+    <li><strong>Screenshots of screen-recordings</strong> als de bug visueel is.</li>
+  </ul>
+
+  <h2>Feature-verzoeken</h2>
+  <p>We lezen ze allemaal. Vertel wat je probeert te doen en waarom &mdash; de use-case is belangrijker dan de exacte implementatie.</p>
+
+  <h2>Security-meldingen</h2>
+  <p>Als je denkt een security-issue gevonden te hebben, mail dan <a href="mailto:security@proxmoxvue.app">security@proxmoxvue.app</a> in plaats van het publiekelijk te posten. We bevestigen binnen enkele werkdagen.</p>
+
+  <p style="margin-top: 60px; font-family: 'JetBrains Mono', monospace; font-size: 13px;"><a href="/nl/">← Terug naar ProxmoxVue</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gebruiksvoorwaarden — ProxmoxVue</title>
+<meta name="description" content="Gebruiksvoorwaarden voor ProxmoxVue, een iPad-client voor Proxmox VE.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="canonical" href="https://proxmoxvue.app/nl/voorwaarden/">
+<link rel="alternate" hreflang="en" href="https://proxmoxvue.app/terms/">
+<link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/voorwaarden/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg-base: #0a0b10; --bg-raised: #13141b; --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.09); --text: #e4e2dc; --text-muted: #8c8a84;
+    --text-dim: rgba(228,226,220,0.4); --amber: #e57000; --amber-bright: #ff8c28;
+    --amber-glow: rgba(229,112,0,0.12); }
+  html, body { min-height: 100vh; background: var(--bg-base); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+  body::after { content: ''; position: fixed; top: -300px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .container { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+  .top-nav { font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; }
+  .top-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .top-nav a:hover { color: var(--amber-bright); }
+  .top-nav .home { color: var(--text); }
+  .top-nav .home::before { content: '← '; color: var(--amber-bright); }
+  h1 { font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--amber-bright); }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
+  h2 { font-size: 19px; font-weight: 600; margin: 36px 0 12px; }
+  h2::before { content: '// '; color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; }
+  p { margin-bottom: 16px; font-size: 15px; }
+  ul { margin: 0 0 16px; padding-left: 22px; } li { margin-bottom: 8px; font-size: 15px; }
+  a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--amber-bright); }
+  strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="top-nav"><a href="/nl/" class="home">Home</a><a href="/terms/">EN</a></nav>
+
+  <h1>Gebruiks<span>voorwaarden</span></h1>
+  <p class="meta">Laatst bijgewerkt: 19 april 2026</p>
+
+  <p>Door ProxmoxVue te installeren en te gebruiken ga je akkoord met deze voorwaarden.</p>
+
+  <h2>Wat de app doet</h2>
+  <p>ProxmoxVue is een client-applicatie die verbindt met <strong>je eigen</strong> Proxmox VE-servers met credentials die jij levert. De app leest data van en verzendt acties naar die servers. Er is geen backend en we zijn niet afhankelijk van iets dat wij draaien.</p>
+
+  <h2>Jouw verantwoordelijkheden</h2>
+  <ul>
+    <li>Jij bent verantwoordelijk voor de Proxmox-servers waarmee je verbindt, de credentials die je gebruikt, en elke actie die je uitvoert (start / stop / reboot / shutdown van VM's en containers).</li>
+    <li>Verbind alleen met servers waarvoor je bevoegd bent om ze te beheren.</li>
+    <li>Je bent verantwoordelijk voor het ingeschakeld houden van de toegangscode en biometrische vergrendeling van je iPad als je credentials privé moeten blijven.</li>
+  </ul>
+
+  <h2>Geen garantie</h2>
+  <p>ProxmoxVue wordt <strong>as-is</strong> aangeboden. Wij geven geen garantie over geschiktheid voor een specifiek doel, ononderbroken werking, of compatibiliteit met een specifieke Proxmox-versie. Acties op jouw infrastructuur zijn voor eigen risico — zorg dat je back-ups hebt en kunt herstellen van fouten.</p>
+
+  <h2>Aansprakelijkheid</h2>
+  <p>Voor zover wettelijk toegestaan zijn wij niet aansprakelijk voor downtime, dataverlies, misconfiguratie of schade voortvloeiend uit het gebruik van de app.</p>
+
+  <h2>Merkrechten-disclaimer</h2>
+  <p>Proxmox&reg; en Proxmox VE&reg; zijn handelsmerken van <strong>Proxmox Server Solutions GmbH</strong>. ProxmoxVue is een onafhankelijke, niet-geaffilieerde, niet-officiële client. Wij zijn niet onderschreven door, gesponsord door, of anderszins verbonden met Proxmox Server Solutions GmbH.</p>
+
+  <h2>Licentie</h2>
+  <p>De app wordt via Apple's App Store verspreid onder de standaard <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Apple EULA</a>. Je krijgt een persoonlijk, niet-overdraagbaar gebruiksrecht.</p>
+
+  <h2>Wijzigingen</h2>
+  <p>Deze voorwaarden kunnen worden bijgewerkt. Inhoudelijke wijzigingen worden vermeld in de update-notes van de app.</p>
+
+  <h2>Contact</h2>
+  <p><a href="/nl/support/">Zie de support-pagina</a> voor contactgegevens.</p>
+
+  <p style="margin-top: 60px;"><a href="/nl/">← Terug naar ProxmoxVue</a></p>
+</div>
+</body>
+</html>

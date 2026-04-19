@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacybeleid — ProxmoxVue</title>
+<meta name="description" content="Privacybeleid van ProxmoxVue. Geen accounts, geen tracking, geen cloud. Alle data blijft tussen jouw iPad en jouw Proxmox-server.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="canonical" href="https://proxmoxvue.app/nl/privacy/">
+<link rel="alternate" hreflang="en" href="https://proxmoxvue.app/privacy/">
+<link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/privacy/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --bg-base: #0a0b10; --bg-raised: #13141b; --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.09); --text: #e4e2dc; --text-muted: #8c8a84;
+    --text-dim: rgba(228,226,220,0.4); --amber: #e57000; --amber-bright: #ff8c28;
+    --amber-glow: rgba(229,112,0,0.12); }
+  html, body { min-height: 100vh; background: var(--bg-base); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+  body::after { content: ''; position: fixed; top: -300px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .container { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+  .top-nav { font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; }
+  .top-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .top-nav a:hover { color: var(--amber-bright); }
+  .top-nav .home { color: var(--text); }
+  .top-nav .home::before { content: '← '; color: var(--amber-bright); }
+  h1 { font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--amber-bright); }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
+  h2 { font-size: 19px; font-weight: 600; margin: 36px 0 12px; }
+  h2::before { content: '// '; color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; }
+  p { margin-bottom: 16px; font-size: 15px; }
+  ul { margin: 0 0 16px; padding-left: 22px; } li { margin-bottom: 8px; font-size: 15px; }
+  a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--amber-bright); }
+  strong { color: var(--text); font-weight: 600; }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg-raised); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .callout { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+  .callout p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="top-nav"><a href="/nl/" class="home">Home</a><a href="/privacy/">EN</a></nav>
+
+  <h1>Privacy<span>beleid</span></h1>
+  <p class="meta">Laatst bijgewerkt: 19 april 2026</p>
+
+  <p>ProxmoxVue is een client-app. Er is geen backend. Er wordt niets van jou verzameld, opgeslagen of naar ons of naar derden verstuurd.</p>
+
+  <div class="callout">
+    <p><strong>Korte versie:</strong> Wij zien niets van jou of je Proxmox-server. De app draait volledig op je iPad. Geen accounts, geen analytics, geen cloud-relay.</p>
+  </div>
+
+  <h2>Welke data de app verwerkt</h2>
+  <p>Bij het toevoegen van een Proxmox-host wordt het volgende <strong>op je apparaat</strong> opgeslagen:</p>
+  <ul>
+    <li>De weergavenaam, URL en TLS-voorkeur van de host (SwiftData — lokale iOS-opslag).</li>
+    <li>Je authenticatie-credentials — API-token, of gebruikersnaam + wachtwoord, afhankelijk van de gekozen methode. Opgeslagen in de iOS <strong>Keychain</strong>, alleen toegankelijk voor deze app en alleen terwijl het apparaat ontgrendeld is.</li>
+    <li>Voor OIDC-logins (bv. Authentik): de sessie-ticket en CSRF-token leven alleen in het geheugen — nooit gepersisteerd. Een nieuwe browser-login is vereist als de sessie verloopt.</li>
+  </ul>
+
+  <h2>Wat verlaat je apparaat</h2>
+  <p>ProxmoxVue communiceert direct en uitsluitend met de Proxmox-server(s) die je toevoegt. Specifiek:</p>
+  <ul>
+    <li>Standaard Proxmox VE REST API-calls (<code>/api2/json/...</code>) met de credentials die je hebt ingesteld.</li>
+    <li>Voor OIDC: één browser-sessie met je identity provider (bv. Authentik, Keycloak) om een authorisatie-code op te halen, die met je Proxmox-server wordt omgewisseld.</li>
+  </ul>
+  <p>Er wordt niets naar andere partijen verstuurd.</p>
+
+  <h2>Wat wij verzamelen</h2>
+  <p>Niets. Wij draaien geen servers voor ProxmoxVue. Geen analytics, geen crash-reporting SDK, geen advertentie-ID. De App Store geeft ons geaggregeerde download-statistieken, maar die bevatten geen persoonlijke informatie over jou.</p>
+
+  <h2>Externe diensten</h2>
+  <p>De app roept namens ons geen enkele externe dienst aan. Als je een OIDC-realm kiest contacteert de browser-login jouw geconfigureerde identity provider — dat contract zit tussen jou en hen, niet ons.</p>
+
+  <h2>Je Proxmox-server</h2>
+  <p>Je Proxmox-server logt zijn eigen API-calls. Raadpleeg het logging- en bewaarbeleid daar rechtstreeks met de beheerder (wat jezelf kan zijn).</p>
+
+  <h2>Kinderen</h2>
+  <p>ProxmoxVue is niet gericht op kinderen onder de 13. Het is een systeembeheer-tool.</p>
+
+  <h2>Wijzigingen</h2>
+  <p>Als dit beleid inhoudelijk verandert, wordt dat vermeld in de update-notes van de app en wordt deze pagina bijgewerkt met een nieuwe "Laatst bijgewerkt"-datum.</p>
+
+  <h2>Contact</h2>
+  <p>Vragen over privacy: <a href="/nl/support/">zie de support-pagina</a>.</p>
+
+  <p style="margin-top: 60px;"><a href="/nl/">← Terug naar ProxmoxVue</a></p>
+</div>
+</body>
+</html>

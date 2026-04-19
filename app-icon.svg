@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a1427"/>
+      <stop offset="1" stop-color="#4a2678"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9a3c"/>
+      <stop offset="1" stop-color="#e57000"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
+  <g opacity="0.14" fill="#ffffff">
+    <rect x="202" y="180" width="620" height="24" rx="12"/>
+    <rect x="202" y="240" width="620" height="24" rx="12"/>
+    <rect x="202" y="300" width="620" height="24" rx="12"/>
+  </g>
+  <text x="512" y="696" text-anchor="middle"
+        font-family="-apple-system, 'SF Pro Rounded', 'Inter', sans-serif"
+        font-weight="900" font-size="520" fill="#ffffff"
+        letter-spacing="-18">PV</text>
+  <circle cx="880" cy="796" r="22" fill="url(#amber)"/>
+</svg>
