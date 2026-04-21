@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ProxmoxVue — Native iPad-app voor Proxmox VE</title>
-<meta name="description" content="ProxmoxVue is een iPad-first native app voor het beheren van je Proxmox VE cluster. Touch-optimaal, geen backend, direct via de Proxmox API.">
+<meta name="description" content="ProxmoxVue is een iPad-first native app voor het beheren van je Proxmox VE-cluster. Touch-optimaal, direct by default, met optionele cloud-functies.">
 <link rel="icon" type="image/svg+xml" href="/app-icon.svg">
 <link rel="apple-touch-icon" href="/app-icon.svg">
 <link rel="canonical" href="https://proxmoxvue.app/nl/">
 <link rel="alternate" hreflang="en" href="https://proxmoxvue.app/">
 <link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/">
 <meta property="og:title" content="ProxmoxVue — Native iPad-app voor Proxmox VE">
-<meta property="og:description" content="Beheer je Proxmox-cluster vanaf je iPad. Touch-first, geen backend, werkt met API-token of OIDC-login.">
+<meta property="og:description" content="Beheer je Proxmox-cluster vanaf je iPad. Touch-first, direct by default. Log in met je API-token, wachtwoord of OIDC (Authentik, Keycloak).">
 <meta property="og:url" content="https://proxmoxvue.app/nl/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://proxmoxvue.app/app-icon.svg">
@@ -52,6 +52,8 @@
   .tagline { font-size: clamp(17px, 2.4vw, 20px); color: var(--text-muted); max-width: 540px; margin: 0 auto 40px; font-weight: 300; }
   .cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; background: linear-gradient(180deg, var(--amber-bright), var(--amber)); color: #1a0f00; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 8px 24px var(--amber-glow); }
   .cta:hover { transform: translateY(-1px); box-shadow: 0 12px 32px var(--amber-glow); }
+  .cta--static { cursor: default; }
+  .cta--static:hover { transform: none; box-shadow: 0 8px 24px var(--amber-glow); }
   .cta .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(0,0,0,0.2); padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em; }
   .cta-note { display: block; margin-top: 12px; font-size: 13px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
   .sec-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
@@ -102,7 +104,7 @@
 
   <div class="prompt">
     <span class="dot" aria-hidden="true"></span>
-    <span><span class="caret">$</span> proxmoxvue --status <span class="blink" aria-hidden="true"></span></span>
+    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvued --status</span><span class="blink" aria-hidden="true"></span></span>
   </div>
 
   <section class="hero">
@@ -110,12 +112,12 @@
       <img src="/app-icon.svg" alt="ProxmoxVue app icon" width="120" height="120">
     </div>
     <h1 class="wordmark">Proxmox<span class="vue">Vue</span></h1>
-    <p class="tagline">Native iPad-app voor het beheren van je Proxmox VE cluster. Touch-first, geen backend, praat direct met je Proxmox API.</p>
-    <a class="cta" href="https://testflight.apple.com/">
-      TestFlight-beta
-      <span class="badge">BINNENKORT</span>
-    </a>
-    <span class="cta-note">App Store-release na de publieke beta · iPadOS 17+</span>
+    <p class="tagline">Native iPad-app voor het beheren van je Proxmox VE-cluster. Touch-first, direct by default.</p>
+    <span class="cta cta--static" aria-label="App Store — Binnenkort">
+      App Store
+      <span class="badge">Binnenkort</span>
+    </span>
+    <span class="cta-note">iPadOS 17+</span>
   </section>
 
   <section class="features">
@@ -140,8 +142,8 @@
         <div class="feat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </div>
-        <h3>Directe API</h3>
-        <p>Je iPad praat direct met je Proxmox-server. Geen tussenstop, geen cloud-relay, geen account nodig. Je credentials blijven op het device in de Keychain.</p>
+        <h3>Direct API first</h3>
+        <p>Je iPad praat rechtstreeks met je Proxmox-server. Je credentials blijven in de iOS Keychain. Optionele cloud-functies — push-notificaties, remote access en een cross-cluster view — draaien op een self-hosted daemon die jij beheert.</p>
       </div>
     </div>
   </section>
@@ -196,8 +198,8 @@
     </div>
 
     <div class="privacy-box">
-      <h3>Geen accounts, geen tracking.</h3>
-      <p>ProxmoxVue heeft geen backend. We zien je hostnames niet, je VM's niet, je credentials niet. Alle data blijft tussen jouw iPad en jouw Proxmox-server. Lees het <a href="/nl/privacy/">privacybeleid</a>.</p>
+      <h3>Geen account nodig in de standaardmodus.</h3>
+      <p>In directe modus blijft alles tussen je iPad en je Proxmox-server — je credentials, je hostnames, je VM's. Cloud-functies zijn opt-in en strak afgebakend. Lees het <a href="/nl/privacy/">privacybeleid</a>.</p>
     </div>
   </section>
 
@@ -213,5 +215,49 @@
   </footer>
 
 </div>
+<script>
+(function(){
+  var el = document.getElementById('tw-cmd');
+  if (!el) return;
+  var cmds = [
+    'proxmoxvued --status',
+    'proxmoxvued --cluster',
+    'proxmoxvued --nodes',
+    'proxmoxvued --version'
+  ];
+  var TYPE_MS = 35, DEL_MS = 22, HOLD_MS = 1500, GAP_MS = 400;
+  var i = 0;
+  function type(cmd, done) {
+    var n = 0;
+    el.textContent = '';
+    (function step(){
+      if (n >= cmd.length) { setTimeout(done, HOLD_MS); return; }
+      el.textContent = cmd.substring(0, n+1);
+      n++;
+      setTimeout(step, TYPE_MS);
+    })();
+  }
+  function del(done) {
+    var n = el.textContent.length;
+    (function step(){
+      if (n <= 0) { setTimeout(done, GAP_MS); return; }
+      el.textContent = el.textContent.substring(0, n-1);
+      n--;
+      setTimeout(step, DEL_MS);
+    })();
+  }
+  function loop() {
+    type(cmds[i], function(){
+      del(function(){
+        i = (i + 1) % cmds.length;
+        loop();
+      });
+    });
+  }
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    loop();
+  }
+})();
+</script>
 </body>
 </html>

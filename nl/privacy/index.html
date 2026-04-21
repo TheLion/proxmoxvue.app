@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacybeleid — ProxmoxVue</title>
-<meta name="description" content="Privacybeleid van ProxmoxVue. Geen accounts, geen tracking, geen cloud. Alle data blijft tussen jouw iPad en jouw Proxmox-server.">
+<meta name="description" content="Privacybeleid van ProxmoxVue. Local-first client-app met een optionele opt-in cloud-add-on. Credentials blijven altijd op je apparaat.">
 <link rel="icon" type="image/svg+xml" href="/app-icon.svg">
 <link rel="canonical" href="https://proxmoxvue.app/nl/privacy/">
 <link rel="alternate" hreflang="en" href="https://proxmoxvue.app/privacy/">
@@ -34,6 +34,7 @@
   .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
   h2 { font-size: 19px; font-weight: 600; margin: 36px 0 12px; }
   h2::before { content: '// '; color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; }
+  h3 { font-size: 15px; font-weight: 600; margin: 24px 0 10px; color: var(--text); }
   p { margin-bottom: 16px; font-size: 15px; }
   ul { margin: 0 0 16px; padding-left: 22px; } li { margin-bottom: 8px; font-size: 15px; }
   a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
@@ -49,35 +50,77 @@
   <nav class="top-nav"><a href="/nl/" class="home">Home</a><a href="/privacy/">EN</a></nav>
 
   <h1>Privacy<span>beleid</span></h1>
-  <p class="meta">Laatst bijgewerkt: 19 april 2026</p>
+  <p class="meta">Laatst bijgewerkt: 21 april 2026</p>
 
-  <p>ProxmoxVue is een client-app. Er is geen backend. Er wordt niets van jou verzameld, opgeslagen of naar ons of naar derden verstuurd.</p>
+  <p>ProxmoxVue is een local-first iPad client-app met een optionele cloud-add-on. Wat je apparaat verlaat hangt af van de modus die je kiest.</p>
 
   <div class="callout">
-    <p><strong>Korte versie:</strong> Wij zien niets van jou of je Proxmox-server. De app draait volledig op je iPad. Geen accounts, geen analytics, geen cloud-relay.</p>
+    <p><strong>Korte versie:</strong></p>
+    <p><strong>Directe modus (standaard):</strong> niets verlaat je iPad behalve calls naar je eigen Proxmox-server — en, als je OIDC-login gebruikt, je identity provider.</p>
+    <p><strong>Cloud-modus (opt-in, betaald):</strong> beperkte operationele data loopt via Supabase (EU-hosted, 30 dagen bewaartermijn) om push-notificaties, remote access en een cross-cluster view mogelijk te maken. Je credentials verlaten nooit je apparaat.</p>
   </div>
 
-  <h2>Welke data de app verwerkt</h2>
+  <h2>Wat op je apparaat blijft</h2>
   <p>Bij het toevoegen van een Proxmox-host wordt het volgende <strong>op je apparaat</strong> opgeslagen:</p>
   <ul>
     <li>De weergavenaam, URL en TLS-voorkeur van de host (SwiftData — lokale iOS-opslag).</li>
     <li>Je authenticatie-credentials — API-token, of gebruikersnaam + wachtwoord, afhankelijk van de gekozen methode. Opgeslagen in de iOS <strong>Keychain</strong>, alleen toegankelijk voor deze app en alleen terwijl het apparaat ontgrendeld is.</li>
-    <li>Voor OIDC-logins (bv. Authentik): de sessie-ticket en CSRF-token leven alleen in het geheugen — nooit gepersisteerd. Een nieuwe browser-login is vereist als de sessie verloopt.</li>
+    <li>Voor OIDC-logins (bv. Authentik, Keycloak): de sessie-ticket en CSRF-token leven alleen in het geheugen — nooit gepersisteerd. Een nieuwe browser-login is vereist als de sessie verloopt.</li>
   </ul>
 
-  <h2>Wat verlaat je apparaat</h2>
-  <p>ProxmoxVue communiceert direct en uitsluitend met de Proxmox-server(s) die je toevoegt. Specifiek:</p>
+  <h2>Directe modus — wat verlaat je apparaat</h2>
+  <p>Standaard communiceert ProxmoxVue direct en uitsluitend met de Proxmox-server(s) die je toevoegt:</p>
   <ul>
     <li>Standaard Proxmox VE REST API-calls (<code>/api2/json/...</code>) met de credentials die je hebt ingesteld.</li>
     <li>Voor OIDC: één browser-sessie met je identity provider (bv. Authentik, Keycloak) om een authorisatie-code op te halen, die met je Proxmox-server wordt omgewisseld.</li>
   </ul>
-  <p>Er wordt niets naar andere partijen verstuurd.</p>
+  <p>In directe modus wordt niets namens ons naar derden verstuurd.</p>
 
-  <h2>Wat wij verzamelen</h2>
-  <p>Niets. Wij draaien geen servers voor ProxmoxVue. Geen analytics, geen crash-reporting SDK, geen advertentie-ID. De App Store geeft ons geaggregeerde download-statistieken, maar die bevatten geen persoonlijke informatie over jou.</p>
+  <h2>Cloud-modus — wat gebeurt er als je die aanzet</h2>
+  <p>Cloud-modus is opt-in en vereist twee dingen: (1) het installeren van <code>proxmoxvued</code>, een kleine self-hosted daemon, op een Linux-machine in je homelab; en (2) een actief Cloud-abonnement. De daemon is de brug tussen je Proxmox en onze cloud-laag. De app blijft voor al het overige de directe API gebruiken.</p>
+
+  <h3>Wat gaat naar Supabase (EU-hosted)</h3>
+  <ul>
+    <li><strong>Heartbeat:</strong> liveness-pings van de daemon (timestamp, daemon-identifier).</li>
+    <li><strong>Operationele status-snapshots:</strong> node online/offline, VM/CT state counts, storage-free totalen. Nooit VM-inhoud, guest-data, of user-activiteit binnen guests.</li>
+    <li><strong>Command-queue:</strong> openstaande iOS-naar-daemon acties (bv. "start VM 101"), één keer afgeleverd en daarna verwijderd.</li>
+  </ul>
+
+  <h3>Wat nooit naar Supabase gaat</h3>
+  <ul>
+    <li>Je Proxmox-credentials (alleen opgeslagen in de iOS Keychain en op je daemon-host).</li>
+    <li>Je OIDC-tokens.</li>
+    <li>VM- of container-inhoud, guest-data, user-wachtwoorden.</li>
+  </ul>
+
+  <h3>Push-notificaties (Apple APNS)</h3>
+  <p>Als er een relevant event plaatsvindt (node offline, backup gefaald, VM down, etc.) wordt een push verstuurd via Apple Push Notification Service. De payload bevat alleen event-type en referentie-identifiers — nooit hostnames, credentials of VM-inhoud.</p>
+
+  <h3>Bewaartermijn</h3>
+  <p>Operationele data in Supabase wordt automatisch verwijderd na <strong>30 dagen</strong>. Push-tokens worden bewaard zolang je abonneert en direct verwijderd bij opzeggen.</p>
+
+  <h3>Jouw controle</h3>
+  <p>Als je <code>proxmoxvued</code> stopt, stopt alle cloud-functionaliteit direct. De daemon draait op een host die jij bezit, auditeerbaar via SSH en je eigen logs. Alle uitgaande verbindingen gaan naar één endpoint (ons EU-hosted Supabase-project), dus je kunt de uitgaande verbindingen in je eigen firewall beperken tot alleen die host — volledige controle over waar de daemon naartoe praat.</p>
+
+  <h2>Wat wij als bedrijf verzamelen</h2>
+  <p>We houden het minimaal:</p>
+  <ul>
+    <li><strong>Anonieme app-telemetrie via TelemetryDeck</strong> (EU-hosted): app-opens, feature-gebruik events (bv. "host toegevoegd", "VM gestart"), iPad-model, iOS-versie. Hash-based anonimisering per install — geen user-IDs, geen hostnames, geen credentials, geen inhoud.</li>
+    <li><strong>Supabase access-logs</strong> (alleen in cloud-modus): Supabase houdt zijn eigen operationele access-logs bij volgens hun privacybeleid — dat is hun verantwoordelijkheid; wij exporteren of analyseren ze niet.</li>
+    <li><strong>App Store geaggregeerde download-statistieken</strong> zoals Apple die aanbiedt. Geen persoonlijke data over jou.</li>
+  </ul>
+  <p>Geen advertentie-identifiers. Geen third-party marketing-SDK's. Geen crash-reporting SDK die PII van je apparaat afstuurt.</p>
 
   <h2>Externe diensten</h2>
-  <p>De app roept namens ons geen enkele externe dienst aan. Als je een OIDC-realm kiest contacteert de browser-login jouw geconfigureerde identity provider — dat contract zit tussen jou en hen, niet ons.</p>
+  <p>Afhankelijk van wat je aanzet kan de app contact maken met:</p>
+  <ul>
+    <li><strong>Je Proxmox-server(s)</strong> — altijd, in directe modus.</li>
+    <li><strong>Je identity provider</strong> (Authentik, Keycloak, etc.) — alleen als je OIDC-login kiest.</li>
+    <li><strong>Supabase EU</strong> — alleen in cloud-modus, via de daemon.</li>
+    <li><strong>Apple Push Notification Service</strong> — alleen als je cloud-push aanzet.</li>
+    <li><strong>TelemetryDeck</strong> (EU) — anonieme app-telemetrie, altijd aan.</li>
+  </ul>
+  <p>Voor OIDC en je Proxmox-server zitten die contracten tussen jou en de operator — niet ons.</p>
 
   <h2>Je Proxmox-server</h2>
   <p>Je Proxmox-server logt zijn eigen API-calls. Raadpleeg het logging- en bewaarbeleid daar rechtstreeks met de beheerder (wat jezelf kan zijn).</p>

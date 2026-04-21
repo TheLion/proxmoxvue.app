@@ -50,7 +50,7 @@
   <nav class="top-nav"><a href="/nl/" class="home">Home</a><a href="/faq/">EN</a></nav>
 
   <h1><span>Veelgestelde</span> vragen</h1>
-  <p class="meta">Laatst bijgewerkt: 19 april 2026</p>
+  <p class="meta">Laatst bijgewerkt: 21 april 2026</p>
 
   <details>
     <summary>Welke Proxmox-versies worden ondersteund?</summary>
@@ -69,7 +69,23 @@
   <details>
     <summary>Heb ik een backend, relay of account nodig?</summary>
     <div class="answer">
-      <p>Nee. ProxmoxVue praat direct met de REST API van je Proxmox-server. Geen account bij ons, geen cloud-relay, geen third-party signup. Je iPad is de client, je Proxmox is de server. Meer niet.</p>
+      <p>Voor standaard direct-API-gebruik: nee. Je iPad praat direct met je Proxmox-server — geen account bij ons, geen cloud-relay. Wil je de optionele cloud-functies (push, remote access, cross-cluster view), dan installeer je een kleine self-hosted daemon op een machine in je homelab en neem je een Cloud-abonnement. De daemon praat met onze EU-hosted Supabase-backend, geeft je Proxmox-credentials nooit door, en je kunt zijn uitgaande verkeer in je firewall beperken tot één endpoint.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Wat zijn cloud-functies, en hoe werken ze?</summary>
+    <div class="answer">
+      <p>Cloud-functies zijn opt-in add-ons: push-notificaties (node offline, backup gefaald, VM down), remote access als je buiten je lokale netwerk zit, en een cross-cluster aggregated dashboard over meerdere Proxmox-hosts.</p>
+      <p>Ze vereisen <code>proxmoxvued</code>, een kleine self-hosted daemon die je op een willekeurige Linux-machine in je homelab draait (vaak de Proxmox-host zelf). Eenmalig installeren en de app pakt het cloud-pad automatisch op voor geabonneerde users. Je iPad blijft direct-API gebruiken voor al het andere.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Heeft de daemon firewall-wijzigingen nodig?</summary>
+    <div class="answer">
+      <p>Geen inkomende firewall-regels. De daemon maakt alleen uitgaande verbindingen — naar één endpoint (onze EU-hosted Supabase-backend).</p>
+      <p>Je kunt het uitgaande verkeer optioneel beperken in je eigen firewall tot alleen die ene host: volledige controle over waar de daemon naartoe praat. Omdat verbindingen door de daemon worden opgezet hoeft er geen poort op je router open.</p>
     </div>
   </details>
 

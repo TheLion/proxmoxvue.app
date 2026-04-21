@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — ProxmoxVue</title>
-<meta name="description" content="ProxmoxVue privacy policy. No accounts, no tracking, no cloud. All data stays between your iPad and your Proxmox server.">
+<meta name="description" content="ProxmoxVue privacy policy. Local-first client app with an optional opt-in cloud add-on. Credentials never leave your device.">
 <link rel="icon" type="image/svg+xml" href="/app-icon.svg">
 <link rel="canonical" href="https://proxmoxvue.app/privacy/">
 <link rel="alternate" hreflang="en" href="https://proxmoxvue.app/privacy/">
@@ -56,35 +56,77 @@
   </nav>
 
   <h1>Privacy <span>Policy</span></h1>
-  <p class="meta">Last updated: 19 April 2026</p>
+  <p class="meta">Last updated: 21 April 2026</p>
 
-  <p>ProxmoxVue is a client app. It has no backend. It does not collect, store, or transmit your data to us or to any third party.</p>
+  <p>ProxmoxVue is a local-first iPad client app with an optional cloud add-on. What leaves your device depends on the mode you choose.</p>
 
   <div class="callout">
-    <p><strong>Short version:</strong> We never see anything about you or your Proxmox server. The app runs entirely on your iPad. There are no accounts, no analytics, no cloud relay.</p>
+    <p><strong>Short version:</strong></p>
+    <p><strong>Direct mode (default):</strong> nothing leaves your iPad except calls to your own Proxmox server — and, if you pick OIDC login, your identity provider.</p>
+    <p><strong>Cloud mode (opt-in, paid):</strong> limited operational data flows through Supabase (EU-hosted, 30-day retention) to enable push notifications, remote access, and a cross-cluster view. Your credentials never leave your device.</p>
   </div>
 
-  <h2>What data the app handles</h2>
+  <h2>What stays on your device</h2>
   <p>When you add a Proxmox host, the following is stored <strong>on your device</strong>:</p>
   <ul>
     <li>The host's display name, URL, and TLS preference (SwiftData — iOS on-device storage).</li>
-    <li>Your authentication credentials — API token, or username + password, depending on which method you chose. Stored in the iOS <strong>Keychain</strong>, accessible only to this app and only while the device is unlocked.</li>
-    <li>For OIDC logins (e.g. Authentik): the session ticket and CSRF token are held in memory only — never persisted. A new browser-login is required if the session expires.</li>
+    <li>Your authentication credentials — API token, or username + password, depending on the method you chose. Stored in the iOS <strong>Keychain</strong>, accessible only to this app and only while the device is unlocked.</li>
+    <li>For OIDC logins (e.g. Authentik, Keycloak): the session ticket and CSRF token are held in memory only — never persisted. A new browser-login is required if the session expires.</li>
   </ul>
 
-  <h2>What leaves your device</h2>
-  <p>ProxmoxVue communicates directly and exclusively with the Proxmox server(s) you add. Specifically:</p>
+  <h2>Direct mode — what leaves your device</h2>
+  <p>By default ProxmoxVue communicates directly and exclusively with the Proxmox server(s) you add:</p>
   <ul>
     <li>Standard Proxmox VE REST API calls (<code>/api2/json/...</code>) using the credentials you configured.</li>
     <li>For OIDC: one browser session with your identity provider (e.g. Authentik, Keycloak) to obtain an authorization code, which is exchanged with your Proxmox server.</li>
   </ul>
-  <p>Nothing is sent to any other party.</p>
+  <p>In direct mode, nothing is sent to any third party on our behalf.</p>
 
-  <h2>What we collect</h2>
-  <p>Nothing. We run no servers for ProxmoxVue. We have no analytics, no crash-reporting SDK, no advertising identifier. The App Store provides aggregate download statistics to us, but those contain no personal data about you.</p>
+  <h2>Cloud mode — what happens when you enable it</h2>
+  <p>Cloud mode is opt-in and requires two things: (1) installing <code>proxmoxvued</code>, a small self-hosted daemon, on a Linux machine in your homelab; and (2) an active Cloud subscription. The daemon is the bridge between your Proxmox and our cloud layer. The app continues to use direct API for everything else.</p>
+
+  <h3>What goes to Supabase (EU-hosted)</h3>
+  <ul>
+    <li><strong>Heartbeat:</strong> daemon liveness pings (timestamp, daemon identifier).</li>
+    <li><strong>Operational status snapshots:</strong> node online/offline, VM/CT state counts, storage-free totals. Never VM contents, guest data, or user activity inside guests.</li>
+    <li><strong>Command queue:</strong> pending iOS-to-daemon actions (e.g. "start VM 101"), delivered once and then deleted.</li>
+  </ul>
+
+  <h3>What never goes to Supabase</h3>
+  <ul>
+    <li>Your Proxmox credentials (stored only in the iOS Keychain and on your daemon host).</li>
+    <li>Your OIDC tokens.</li>
+    <li>VM or container contents, guest data, user passwords.</li>
+  </ul>
+
+  <h3>Push notifications (Apple APNS)</h3>
+  <p>When a relevant event occurs (node offline, failed backup, VM down, etc.) a push is delivered via Apple Push Notification Service. The payload is limited to event type and reference identifiers — never hostnames, credentials, or VM contents.</p>
+
+  <h3>Retention</h3>
+  <p>Operational data in Supabase is automatically deleted after <strong>30 days</strong>. Push tokens are retained while you subscribe and deleted immediately on unsubscribe.</p>
+
+  <h3>Your control</h3>
+  <p>Stopping <code>proxmoxvued</code> stops all cloud functionality immediately. The daemon runs on a host you own, auditable via SSH and your own logs. All outgoing connections go to a single endpoint (our EU-hosted Supabase project), so you can restrict its egress to just that host in your own firewall — full control over where the daemon communicates.</p>
+
+  <h2>What we collect as a company</h2>
+  <p>We keep collection minimal:</p>
+  <ul>
+    <li><strong>Anonymous app telemetry via TelemetryDeck</strong> (EU-hosted): app opens, feature-usage events (e.g. "added host", "started VM"), iPad model, iOS version. Hash-based anonymization per install — no user IDs, no hostnames, no credentials, no content.</li>
+    <li><strong>Supabase access logs</strong> (in cloud mode only): Supabase maintains its own operational access logs per its privacy policy — those are their responsibility; we don't export or analyze them.</li>
+    <li><strong>App Store aggregate download statistics</strong> as provided by Apple. No personal data about you.</li>
+  </ul>
+  <p>No advertising identifiers. No third-party marketing SDKs. No crash-reporting SDK that ships PII off-device.</p>
 
   <h2>Third-party services</h2>
-  <p>The app makes no calls to any third-party service on our behalf. If you choose an OIDC realm, the browser login you trigger will contact your configured identity provider — that contract is between you and them, not us.</p>
+  <p>Depending on what you enable, the app may contact:</p>
+  <ul>
+    <li><strong>Your Proxmox server(s)</strong> — always, in direct mode.</li>
+    <li><strong>Your identity provider</strong> (Authentik, Keycloak, etc.) — only if you choose OIDC login.</li>
+    <li><strong>Supabase EU</strong> — only in cloud mode, via the daemon.</li>
+    <li><strong>Apple Push Notification Service</strong> — only if you enable cloud push.</li>
+    <li><strong>TelemetryDeck</strong> (EU) — anonymous app telemetry, always on.</li>
+  </ul>
+  <p>For OIDC and your Proxmox server, those contracts are between you and the operator — not us.</p>
 
   <h2>Your Proxmox server</h2>
   <p>Your Proxmox server logs its own API calls. Review its logging and retention policies directly with the administrator (which may be you).</p>

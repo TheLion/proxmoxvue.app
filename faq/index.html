@@ -50,7 +50,7 @@
   <nav class="top-nav"><a href="/" class="home">Home</a><a href="/nl/faq/">NL</a></nav>
 
   <h1><span>Frequently</span> Asked</h1>
-  <p class="meta">Last updated: 19 April 2026</p>
+  <p class="meta">Last updated: 21 April 2026</p>
 
   <details>
     <summary>Which Proxmox versions are supported?</summary>
@@ -69,7 +69,23 @@
   <details>
     <summary>Do I need a backend, a relay, or an account?</summary>
     <div class="answer">
-      <p>No. ProxmoxVue talks directly to your Proxmox server's REST API. No account with us, no cloud relay, no third-party signup. Your iPad is the client, your Proxmox is the server. That's it.</p>
+      <p>For default direct-API usage: no. Your iPad talks straight to your Proxmox server — no account with us, no cloud relay. If you want the optional cloud features (push, remote access, cross-cluster view), you install a small self-hosted daemon on a machine in your homelab and take out a Cloud subscription. The daemon talks to our EU-hosted Supabase backend, never exposes your Proxmox credentials, and you can filter its outgoing traffic to one endpoint in your firewall.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What are cloud features, and how do they work?</summary>
+    <div class="answer">
+      <p>Cloud features are opt-in add-ons: push notifications (node offline, backup failed, VM down), remote access when you're outside your local network, and a cross-cluster aggregated dashboard across multiple Proxmox hosts.</p>
+      <p>They require <code>proxmoxvued</code>, a small self-hosted daemon you run on any Linux machine in your homelab (typically the Proxmox host itself). Install it once, and the app picks up the cloud path automatically for subscribed users. Your iPad keeps using direct API for everything else.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Does the daemon need firewall changes?</summary>
+    <div class="answer">
+      <p>No inbound firewall rules. The daemon only makes outbound connections — to one endpoint (our EU-hosted Supabase backend).</p>
+      <p>You can optionally restrict its egress in your own firewall to just that one host: full control over where the daemon communicates. Since connections are daemon-initiated, no port needs to be opened on your router.</p>
     </div>
   </details>
 

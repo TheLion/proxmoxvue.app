@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ProxmoxVue — Native iPad app for Proxmox VE</title>
-<meta name="description" content="ProxmoxVue is an iPad-first native app to manage your Proxmox VE cluster. Touch-optimized, no backend, talks directly to your Proxmox API.">
+<meta name="description" content="ProxmoxVue is an iPad-first native app to manage your Proxmox VE cluster. Touch-optimized, direct by default, with optional cloud features.">
 <link rel="icon" type="image/svg+xml" href="/app-icon.svg">
 <link rel="apple-touch-icon" href="/app-icon.svg">
 <link rel="canonical" href="https://proxmoxvue.app/">
 <link rel="alternate" hreflang="en" href="https://proxmoxvue.app/">
 <link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/">
 <meta property="og:title" content="ProxmoxVue — Native iPad app for Proxmox VE">
-<meta property="og:description" content="Manage your Proxmox cluster from your iPad. Touch-first, no backend, uses your API token or OIDC login.">
+<meta property="og:description" content="Manage your Proxmox cluster from your iPad. Touch-first, direct by default. Sign in with your API token, password, or OIDC (Authentik, Keycloak).">
 <meta property="og:url" content="https://proxmoxvue.app/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://proxmoxvue.app/app-icon.svg">
@@ -75,6 +75,8 @@
   .tagline { font-size: clamp(17px, 2.4vw, 20px); color: var(--text-muted); max-width: 540px; margin: 0 auto 40px; font-weight: 300; }
   .cta { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; background: linear-gradient(180deg, var(--amber-bright), var(--amber)); color: #1a0f00; text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 10px; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 8px 24px var(--amber-glow); }
   .cta:hover { transform: translateY(-1px); box-shadow: 0 12px 32px var(--amber-glow); }
+  .cta--static { cursor: default; }
+  .cta--static:hover { transform: none; box-shadow: 0 8px 24px var(--amber-glow); }
   .cta .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(0,0,0,0.2); padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em; }
   .cta-note { display: block; margin-top: 12px; font-size: 13px; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
 
@@ -140,7 +142,7 @@
 
   <div class="prompt">
     <span class="dot" aria-hidden="true"></span>
-    <span><span class="caret">$</span> proxmoxvue --status <span class="blink" aria-hidden="true"></span></span>
+    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvued --status</span><span class="blink" aria-hidden="true"></span></span>
   </div>
 
   <section class="hero">
@@ -148,12 +150,12 @@
       <img src="/app-icon.svg" alt="ProxmoxVue app icon" width="120" height="120">
     </div>
     <h1 class="wordmark">Proxmox<span class="vue">Vue</span></h1>
-    <p class="tagline">Native iPad app for managing your Proxmox VE cluster. Touch-first, no backend, talks directly to your Proxmox API.</p>
-    <a class="cta" href="https://testflight.apple.com/">
-      TestFlight beta
-      <span class="badge">SOON</span>
-    </a>
-    <span class="cta-note">App Store release scheduled after public beta · iPadOS 17+</span>
+    <p class="tagline">Native iPad app for managing your Proxmox VE cluster. Touch-first, direct by default.</p>
+    <span class="cta cta--static" aria-label="App Store — Coming soon">
+      App Store
+      <span class="badge">Coming soon</span>
+    </span>
+    <span class="cta-note">iPadOS 17+</span>
   </section>
 
   <section class="features">
@@ -178,8 +180,8 @@
         <div class="feat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </div>
-        <h3>Direct API</h3>
-        <p>Your iPad talks directly to your Proxmox server. No middleman, no cloud relay, no account required. Your credentials stay on-device in the Keychain.</p>
+        <h3>Direct API first</h3>
+        <p>Your iPad talks directly to your Proxmox server. Credentials stay in the iOS Keychain. Optional cloud features — push notifications, remote access, and a cross-cluster view — run on a self-hosted daemon you control.</p>
       </div>
     </div>
   </section>
@@ -234,8 +236,8 @@
     </div>
 
     <div class="privacy-box">
-      <h3>No accounts, no tracking.</h3>
-      <p>ProxmoxVue has no backend. We don't see your hostnames, your VMs, or your credentials. All data stays between your iPad and your Proxmox server. Read the <a href="/privacy/">privacy policy</a>.</p>
+      <h3>No accounts required by default.</h3>
+      <p>Direct mode keeps everything between your iPad and your Proxmox server — your credentials, your hostnames, your VMs. Cloud features are opt-in and clearly scoped. Read the <a href="/privacy/">privacy policy</a>.</p>
     </div>
   </section>
 
@@ -251,5 +253,49 @@
   </footer>
 
 </div>
+<script>
+(function(){
+  var el = document.getElementById('tw-cmd');
+  if (!el) return;
+  var cmds = [
+    'proxmoxvued --status',
+    'proxmoxvued --cluster',
+    'proxmoxvued --nodes',
+    'proxmoxvued --version'
+  ];
+  var TYPE_MS = 35, DEL_MS = 22, HOLD_MS = 1500, GAP_MS = 400;
+  var i = 0;
+  function type(cmd, done) {
+    var n = 0;
+    el.textContent = '';
+    (function step(){
+      if (n >= cmd.length) { setTimeout(done, HOLD_MS); return; }
+      el.textContent = cmd.substring(0, n+1);
+      n++;
+      setTimeout(step, TYPE_MS);
+    })();
+  }
+  function del(done) {
+    var n = el.textContent.length;
+    (function step(){
+      if (n <= 0) { setTimeout(done, GAP_MS); return; }
+      el.textContent = el.textContent.substring(0, n-1);
+      n--;
+      setTimeout(step, DEL_MS);
+    })();
+  }
+  function loop() {
+    type(cmds[i], function(){
+      del(function(){
+        i = (i + 1) % cmds.length;
+        loop();
+      });
+    });
+  }
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    loop();
+  }
+})();
+</script>
 </body>
 </html>
