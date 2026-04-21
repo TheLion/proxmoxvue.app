@@ -1,23 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#1a1427"/>
-      <stop offset="1" stop-color="#4a2678"/>
+      <stop offset="0" stop-color="#0a0b10"/>
+      <stop offset="1" stop-color="#13141b"/>
     </linearGradient>
-    <linearGradient id="amber" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ff9a3c"/>
+    <radialGradient id="amberGlow" cx="880" cy="160" r="640" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff8c28" stop-opacity="0.28"/>
+      <stop offset="0.6" stop-color="#e57000" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#e57000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="amberFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff8c28"/>
       <stop offset="1" stop-color="#e57000"/>
     </linearGradient>
+    <pattern id="scanlines" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="60" y2="0" stroke="#ffffff" stroke-opacity="0.025" stroke-width="1"/>
+    </pattern>
   </defs>
+
+  <!-- Rounded square base -->
   <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
-  <g opacity="0.14" fill="#ffffff">
-    <rect x="202" y="180" width="620" height="24" rx="12"/>
-    <rect x="202" y="240" width="620" height="24" rx="12"/>
-    <rect x="202" y="300" width="620" height="24" rx="12"/>
-  </g>
-  <text x="512" y="696" text-anchor="middle"
+  <rect width="1024" height="1024" rx="224" fill="url(#scanlines)"/>
+  <rect width="1024" height="1024" rx="224" fill="url(#amberGlow)"/>
+
+  <!-- PV wordmark: P in warm off-white, V in amber -->
+  <text x="512" y="700" text-anchor="middle"
         font-family="-apple-system, 'SF Pro Rounded', 'Inter', sans-serif"
-        font-weight="900" font-size="520" fill="#ffffff"
-        letter-spacing="-18">PV</text>
-  <circle cx="880" cy="796" r="22" fill="url(#amber)"/>
+        font-weight="900" font-size="600" letter-spacing="-24">
+    <tspan fill="#e4e2dc">P</tspan><tspan fill="url(#amberFill)">V</tspan>
+  </text>
+
+  <!-- Status dot — subtle nod to cluster-health -->
+  <circle cx="880" cy="824" r="26" fill="#4ade80"/>
+
+  <!-- Subtle inner rim for depth -->
+  <rect x="6" y="6" width="1012" height="1012" rx="218" fill="none"
+        stroke="#ffffff" stroke-opacity="0.06" stroke-width="2"/>
 </svg>
