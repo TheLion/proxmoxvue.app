@@ -348,5 +348,14 @@
   }
 })();
 </script>
+<script type="module">
+  import TelemetryDeck from 'https://cdn.jsdelivr.net/npm/@telemetrydeck/sdk/dist/telemetrydeck.js';
+  const td = new TelemetryDeck({ appID: 'D04FF389-89B5-473A-90F0-F907ABDEFEF7', clientUser: 'anonymous' });
+  const lang = document.documentElement.lang || 'en';
+  td.signal('pageView', { language: lang, page: window.location.pathname });
+  document.querySelectorAll('a[href*="apps.apple.com"]').forEach(el =>
+    el.addEventListener('click', () => td.signal('appStoreClick', { language: lang }))
+  );
+</script>
 </body>
 </html>
