@@ -84,6 +84,7 @@
   .plan-card ul { list-style: none; padding: 0; margin: 0; }
   .plan-card li { font-size: 13px; color: var(--text-muted); line-height: 1.55; padding: 4px 0; position: relative; padding-left: 14px; }
   .plan-card li::before { content: '·'; color: var(--amber-bright); position: absolute; left: 2px; font-weight: 700; }
+  .plan-card li .soon { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); background: var(--bg-raised); border: 1px solid var(--border); padding: 1px 5px; border-radius: 4px; margin-left: 6px; vertical-align: 1px; }
   .plans-note { margin-top: 20px; font-size: 12px; color: var(--text-dim); text-align: center; font-family: 'JetBrains Mono', monospace; }
   .auth { padding: 60px 0; border-top: 1px solid var(--border); }
   .auth-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -207,8 +208,8 @@
         <ul>
           <li>Onbeperkt hosts</li>
           <li>Snapshots &amp; backups</li>
-          <li>Console (noVNC)</li>
-          <li>Historische grafieken en admin-views</li>
+          <li>Console (noVNC) <span class="soon">Binnenkort</span></li>
+          <li>Historische grafieken en admin-views <span class="soon">Binnenkort</span></li>
         </ul>
       </div>
       <div class="plan-card accent">
@@ -216,9 +217,9 @@
         <h4>Cloud add-on</h4>
         <ul>
           <li>Alles uit Pro</li>
-          <li>Push-notificaties</li>
+          <li>Push-notificaties <span class="soon">Binnenkort</span></li>
           <li>Remote access</li>
-          <li>Cross-cluster view</li>
+          <li>Cross-cluster view <span class="soon">Binnenkort</span></li>
         </ul>
       </div>
     </div>
