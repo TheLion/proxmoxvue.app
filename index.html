@@ -156,7 +156,7 @@
 
   <div class="prompt">
     <span class="dot" aria-hidden="true"></span>
-    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvued --status</span><span class="blink" aria-hidden="true"></span></span>
+    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvue-agent --status</span><span class="blink" aria-hidden="true"></span></span>
   </div>
 
   <section class="hero">
@@ -248,6 +248,7 @@
         <ul>
           <li>Unlimited hosts</li>
           <li>Snapshots &amp; backups</li>
+          <li>Create &amp; delete VMs / CTs</li>
           <li>Console (noVNC) <span class="soon">Soon</span></li>
           <li>Historical graphs &amp; admin views <span class="soon">Soon</span></li>
         </ul>
@@ -257,8 +258,8 @@
         <h4>Cloud add-on</h4>
         <ul>
           <li>Everything in Pro</li>
-          <li>Push notifications <span class="soon">Soon</span></li>
           <li>Remote access</li>
+          <li>Push notifications <span class="soon">Soon</span></li>
           <li>Cross-cluster view <span class="soon">Soon</span></li>
         </ul>
       </div>
@@ -310,10 +311,10 @@
   var el = document.getElementById('tw-cmd');
   if (!el) return;
   var cmds = [
-    'proxmoxvued --status',
-    'proxmoxvued --cluster',
-    'proxmoxvued --nodes',
-    'proxmoxvued --version'
+    'proxmoxvue-agent --status',
+    'proxmoxvue-agent --cluster',
+    'proxmoxvue-agent --nodes',
+    'proxmoxvue-agent --version'
   ];
   var TYPE_MS = 35, DEL_MS = 22, HOLD_MS = 1500, GAP_MS = 400;
   var i = 0;
