@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutzerklärung — ProxmoxVue</title>
+<meta name="description" content="Datenschutzerklärung von ProxmoxVue. Local-first Client-App mit optionaler Cloud-Erweiterung. Anmeldedaten verlassen niemals Ihr Gerät.">
+<link rel="icon" type="image/svg+xml" href="/app-icon.svg">
+<link rel="canonical" href="https://proxmoxvue.app/de/privacy/">
+<link rel="alternate" hreflang="en" href="https://proxmoxvue.app/privacy/">
+<link rel="alternate" hreflang="nl" href="https://proxmoxvue.app/nl/privacy/">
+<link rel="alternate" hreflang="de" href="https://proxmoxvue.app/de/privacy/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-base: #0a0b10; --bg-raised: #13141b; --bg-card: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.09); --text: #e4e2dc; --text-muted: #8c8a84;
+    --text-dim: rgba(228,226,220,0.4); --amber: #e57000; --amber-bright: #ff8c28;
+    --amber-glow: rgba(229,112,0,0.12);
+  }
+  html, body { min-height: 100vh; background: var(--bg-base); color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px); }
+  body::after { content: ''; position: fixed; top: -300px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+  .container { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+  .top-nav { font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 48px; display: flex; justify-content: space-between; align-items: center; }
+  .top-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .top-nav a:hover { color: var(--amber-bright); }
+  .top-nav .home { color: var(--text); }
+  .top-nav .home::before { content: '← '; color: var(--amber-bright); }
+  h1 { font-family: 'JetBrains Mono', monospace; font-size: clamp(28px, 4vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 span { color: var(--amber-bright); }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 40px; }
+  h2 { font-size: 19px; font-weight: 600; margin: 36px 0 12px; color: var(--text); }
+  h2::before { content: '// '; color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; }
+  h3 { font-size: 15px; font-weight: 600; margin: 24px 0 10px; color: var(--text); }
+  p { margin-bottom: 16px; color: var(--text); font-size: 15px; }
+  ul { margin: 0 0 16px; padding-left: 22px; }
+  li { margin-bottom: 8px; color: var(--text); font-size: 15px; }
+  a { color: var(--amber-bright); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  a:hover { border-bottom-color: var(--amber-bright); }
+  strong { color: var(--text); font-weight: 600; }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.9em; background: var(--bg-raised); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border); }
+  .callout { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--amber); border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+  .callout p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="top-nav">
+    <a href="/" class="home">Home</a>
+    <span><a href="/privacy/">EN</a> · <a href="/nl/privacy/">NL</a></span>
+  </nav>
+
+  <h1>Datenschutz<span>erklärung</span></h1>
+  <p class="meta">Zuletzt aktualisiert: 4. Mai 2026</p>
+
+  <p>ProxmoxVue ist eine local-first iPad-Client-App mit optionaler Cloud-Erweiterung. Was Ihr Gerät verlässt, hängt vom gewählten Modus ab.</p>
+
+  <div class="callout">
+    <p><strong>Kurzfassung:</strong></p>
+    <p><strong>Direkter Modus (Standard):</strong> Außer Aufrufen Ihres eigenen Proxmox-Servers — und, sofern Sie OIDC-Login verwenden, Ihres Identity Providers — verlässt nichts Ihr iPad.</p>
+    <p><strong>Cloud-Modus (opt-in, kostenpflichtig):</strong> Begrenzte Betriebsdaten laufen über Supabase (in der EU gehostet, 30 Tage Aufbewahrung), um Push-Benachrichtigungen, Remote-Zugriff und eine Cluster-übergreifende Ansicht zu ermöglichen. Ihre Anmeldedaten verlassen niemals Ihr Gerät.</p>
+  </div>
+
+  <h2>Was auf Ihrem Gerät bleibt</h2>
+  <p>Beim Hinzufügen eines Proxmox-Hosts wird Folgendes <strong>auf Ihrem Gerät</strong> gespeichert:</p>
+  <ul>
+    <li>Anzeigename, URL und TLS-Einstellung des Hosts (SwiftData — lokaler iOS-Speicher).</li>
+    <li>Ihre Anmeldedaten — API-Token oder Benutzername + Passwort, je nach gewählter Methode. Gespeichert im iOS-<strong>Schlüsselbund (Keychain)</strong>, ausschließlich für diese App zugänglich und nur, solange das Gerät entsperrt ist.</li>
+    <li>Bei OIDC-Anmeldungen (z. B. Authentik, Keycloak): Session-Ticket und CSRF-Token werden ausschließlich im Speicher gehalten — niemals persistiert. Bei Sitzungsablauf ist eine neue Browser-Anmeldung erforderlich.</li>
+  </ul>
+
+  <h2>Direkter Modus — was Ihr Gerät verlässt</h2>
+  <p>Standardmäßig kommuniziert ProxmoxVue ausschließlich direkt mit den von Ihnen hinzugefügten Proxmox-Servern:</p>
+  <ul>
+    <li>Standardisierte Proxmox-VE-REST-API-Aufrufe (<code>/api2/json/...</code>) mit den von Ihnen konfigurierten Anmeldedaten.</li>
+    <li>Bei OIDC: eine Browser-Sitzung mit Ihrem Identity Provider (z. B. Authentik, Keycloak), um einen Authorization Code zu erhalten, der mit Ihrem Proxmox-Server eingelöst wird.</li>
+  </ul>
+  <p>Im direkten Modus werden keine Daten an Dritte in unserem Auftrag übermittelt.</p>
+
+  <h2>Cloud-Modus — was bei Aktivierung passiert</h2>
+  <p>Der Cloud-Modus ist opt-in und erfordert zwei Dinge: (1) die Installation von <code>proxmoxvued</code>, einem kleinen self-hosted Daemon, auf einem Linux-Rechner in Ihrem Homelab; und (2) ein aktives Cloud-Abonnement. Der Daemon ist die Brücke zwischen Ihrem Proxmox und unserer Cloud-Schicht. Für alles Übrige nutzt die App weiterhin die direkte API.</p>
+
+  <h3>Was an Supabase übermittelt wird (in der EU gehostet)</h3>
+  <ul>
+    <li><strong>Heartbeat:</strong> Lebenszeichen des Daemons (Zeitstempel, Daemon-Identifier).</li>
+    <li><strong>Operative Status-Snapshots:</strong> Node online/offline, VM/CT-Statuszählungen, freier Speicher pro Storage. Niemals VM-Inhalte, Gast-Daten oder Benutzeraktivitäten innerhalb der Gäste.</li>
+    <li><strong>Befehlswarteschlange:</strong> ausstehende iOS-zu-Daemon-Aktionen (z. B. „VM 101 starten"), nach einmaliger Zustellung gelöscht.</li>
+  </ul>
+
+  <h3>Was niemals an Supabase übermittelt wird</h3>
+  <ul>
+    <li>Ihre Proxmox-Anmeldedaten (ausschließlich im iOS-Schlüsselbund und auf Ihrem Daemon-Host gespeichert).</li>
+    <li>Ihre OIDC-Tokens.</li>
+    <li>VM- oder Container-Inhalte, Gast-Daten, Benutzerpasswörter.</li>
+  </ul>
+
+  <h3>Push-Benachrichtigungen (Apple APNS)</h3>
+  <p>Bei einem relevanten Ereignis (Node offline, fehlgeschlagenes Backup, VM ausgefallen usw.) wird eine Push-Nachricht über den Apple Push Notification Service zugestellt. Die Nutzlast beschränkt sich auf Ereignistyp und Referenz-Identifier — niemals Hostnamen, Anmeldedaten oder VM-Inhalte.</p>
+
+  <h3>Aufbewahrung</h3>
+  <p>Operative Daten in Supabase werden automatisch nach <strong>30 Tagen</strong> gelöscht. Push-Tokens werden für die Dauer Ihres Abonnements gespeichert und unmittelbar bei Kündigung gelöscht.</p>
+
+  <h3>Ihre Kontrolle</h3>
+  <p>Wird <code>proxmoxvued</code> gestoppt, endet sämtliche Cloud-Funktionalität sofort. Der Daemon läuft auf einem Host, den Sie besitzen — auditierbar via SSH und über Ihre eigenen Logs. Sämtlicher ausgehender Verkehr richtet sich an einen einzigen Endpunkt (unser EU-gehostetes Supabase-Projekt), sodass Sie den Daemon in Ihrer eigenen Firewall auf genau diesen Host beschränken können — vollständige Kontrolle darüber, wohin der Daemon kommuniziert.</p>
+
+  <h2>Was wir als Unternehmen erheben</h2>
+  <p>Die Erhebung halten wir minimal:</p>
+  <ul>
+    <li><strong>Anonyme App-Telemetrie über TelemetryDeck</strong> (in der EU gehostet): App-Starts, Feature-Nutzungs-Ereignisse (z. B. „Host hinzugefügt", „VM gestartet"), iPad-Modell, iOS-Version. Hash-basierte Anonymisierung pro Installation — keine Benutzer-IDs, keine Hostnamen, keine Anmeldedaten, keine Inhalte. TelemetryDeck verwendet keine Cookies, erstellt keine Nutzerprofile und speichert IP-Adressen nicht dauerhaft.</li>
+    <li><strong>Supabase-Zugriffsprotokolle</strong> (nur im Cloud-Modus): Supabase führt nach eigenem Datenschutzhinweis operative Zugriffsprotokolle — diese liegen in deren Verantwortung; wir exportieren oder analysieren sie nicht.</li>
+    <li><strong>Aggregierte App-Store-Download-Statistiken</strong>, wie von Apple bereitgestellt. Keine personenbezogenen Daten über Sie.</li>
+  </ul>
+  <p>Keine Werbe-Identifier. Keine Marketing-SDKs Dritter. Kein Crash-Reporting-SDK, das personenbezogene Daten von Ihrem Gerät überträgt.</p>
+
+  <h2>Drittanbieter-Dienste</h2>
+  <p>Je nachdem, was Sie aktivieren, kann die App folgende Stellen kontaktieren:</p>
+  <ul>
+    <li><strong>Ihre Proxmox-Server</strong> — immer im direkten Modus.</li>
+    <li><strong>Ihren Identity Provider</strong> (Authentik, Keycloak usw.) — nur bei Auswahl von OIDC-Login.</li>
+    <li><strong>Supabase EU</strong> — nur im Cloud-Modus, über den Daemon.</li>
+    <li><strong>Apple Push Notification Service</strong> — nur bei aktivierten Cloud-Pushes.</li>
+    <li><strong>TelemetryDeck</strong> (EU) — anonyme App-Telemetrie, immer aktiv.</li>
+  </ul>
+  <p>Verträge mit Ihrem OIDC-Provider und Ihrem Proxmox-Server bestehen zwischen Ihnen und dem jeweiligen Betreiber — nicht mit uns.</p>
+
+  <h2>Hosting</h2>
+  <p>Unsere Cloud-Komponenten werden ausschließlich innerhalb der Europäischen Union gehostet. Es findet keine Übermittlung personenbezogener Daten in Drittländer statt.</p>
+
+  <h2>Ihr Proxmox-Server</h2>
+  <p>Ihr Proxmox-Server protokolliert seine eigenen API-Aufrufe. Logging- und Aufbewahrungsrichtlinien klären Sie direkt mit dem Administrator (möglicherweise Sie selbst).</p>
+
+  <h2>Kinder</h2>
+  <p>ProxmoxVue richtet sich nicht an Kinder unter 13 Jahren. Es handelt sich um ein Werkzeug zur Systemadministration.</p>
+
+  <h2>Verantwortlicher</h2>
+  <p>Verantwortlicher im Sinne der DSGVO:</p>
+  <p>
+    [Name / Firmenname]<br>
+    [Adresse]<br>
+    E-Mail: <a href="mailto:m.a.janssen@gmail.com">m.a.janssen@gmail.com</a>
+  </p>
+
+  <h2>Rechtsgrundlagen (DSGVO)</h2>
+  <p>Wir verarbeiten personenbezogene Daten ausschließlich auf folgenden Rechtsgrundlagen:</p>
+  <ul>
+    <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> — Vertragserfüllung (Bereitstellung der App und ggf. eines Cloud-Abonnements).</li>
+    <li><strong>Art. 6 Abs. 1 lit. f DSGVO</strong> — berechtigtes Interesse an technischer Stabilität, Sicherheit und Produktverbesserung über anonyme Telemetrie.</li>
+  </ul>
+  <p>Eine Verarbeitung auf Grundlage einer Einwilligung findet nicht statt; sollte sich dies künftig ändern, können Sie die Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+
+  <h2>Ihre Rechte (DSGVO)</h2>
+  <p>Sie haben jederzeit folgende Rechte:</p>
+  <ul>
+    <li>Auskunft (Art. 15 DSGVO)</li>
+    <li>Berichtigung (Art. 16 DSGVO)</li>
+    <li>Löschung — „Recht auf Vergessenwerden" (Art. 17 DSGVO)</li>
+    <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+    <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+    <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
+  </ul>
+  <p>Sie haben außerdem das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren — etwa bei der zuständigen Landesbehörde oder dem <a href="https://www.bfdi.bund.de/">Bundesbeauftragten für den Datenschutz und die Informationsfreiheit (BfDI)</a>.</p>
+
+  <h2>Datensicherheit</h2>
+  <p>Wir setzen geeignete technische und organisatorische Maßnahmen ein, um Ihre Daten gegen Verlust, Missbrauch und unbefugten Zugriff zu schützen. Anmeldedaten werden ausschließlich lokal im iOS-Schlüsselbund gespeichert; die Cloud-Komponente nutzt verschlüsselte Verbindungen (HTTPS / TLS 1.2+) sowie EU-Hosting.</p>
+
+  <h2>Änderungen</h2>
+  <p>Bei wesentlichen Änderungen dieser Datenschutzerklärung wird dies in den App-Update-Hinweisen erwähnt; auf dieser Seite wird zudem das Datum „Zuletzt aktualisiert" angepasst.</p>
+
+  <h2>Kontakt</h2>
+  <p>Fragen zum Datenschutz: <a href="/support/">siehe Support-Seite</a> oder direkt per E-Mail an <a href="mailto:m.a.janssen@gmail.com">m.a.janssen@gmail.com</a>.</p>
+
+  <p style="margin-top: 60px;"><a href="/">← Zurück zu ProxmoxVue</a></p>
+</div>
+<script type="module">
+  import TelemetryDeck from 'https://cdn.jsdelivr.net/npm/@telemetrydeck/sdk/dist/telemetrydeck.js';
+  const td = new TelemetryDeck({ appID: 'D04FF389-89B5-473A-90F0-F907ABDEFEF7', clientUser: 'anonymous' });
+  const lang = document.documentElement.lang || 'en';
+  td.signal('pageView', { language: lang, page: window.location.pathname });
+  document.querySelectorAll('a[href*="apps.apple.com"]').forEach(el =>
+    el.addEventListener('click', () => td.signal('appStoreClick', { language: lang }))
+  );
+</script>
+</body>
+</html>
