@@ -156,7 +156,7 @@
 
   <div class="prompt">
     <span class="dot" aria-hidden="true"></span>
-    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvue-agent --status</span><span class="blink" aria-hidden="true"></span></span>
+    <span><span class="caret">$</span> <span id="tw-cmd">proxmoxvue-agent --run</span><span class="blink" aria-hidden="true"></span></span>
   </div>
 
   <section class="hero">
@@ -249,6 +249,7 @@
           <li>Unlimited hosts</li>
           <li>Snapshots &amp; backups</li>
           <li>Create &amp; delete VMs / CTs</li>
+          <li>Firewall &amp; networking (read-only)</li>
           <li>Console (noVNC) <span class="soon">Soon</span></li>
           <li>Historical graphs &amp; admin views <span class="soon">Soon</span></li>
         </ul>
@@ -311,9 +312,9 @@
   var el = document.getElementById('tw-cmd');
   if (!el) return;
   var cmds = [
-    'proxmoxvue-agent --status',
-    'proxmoxvue-agent --cluster',
-    'proxmoxvue-agent --nodes',
+    'proxmoxvue-agent --register CODE',
+    'proxmoxvue-agent --run',
+    'proxmoxvue-agent --rotate-key',
     'proxmoxvue-agent --version'
   ];
   var TYPE_MS = 35, DEL_MS = 22, HOLD_MS = 1500, GAP_MS = 400;
