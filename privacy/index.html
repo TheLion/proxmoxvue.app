@@ -84,7 +84,7 @@
   <p>In direct mode, nothing is sent to any third party on our behalf.</p>
 
   <h2>Cloud mode — what happens when you enable it</h2>
-  <p>Cloud mode is opt-in and requires two things: (1) installing <code>proxmoxvued</code>, a small self-hosted daemon, on a Linux machine in your homelab; and (2) an active Cloud subscription. The daemon is the bridge between your Proxmox and our cloud layer. The app continues to use direct API for everything else.</p>
+  <p>Cloud mode is opt-in and requires two things: (1) installing <code>proxmoxvue-agent</code>, a small self-hosted daemon, on a Linux machine in your homelab; and (2) an active Cloud subscription. The daemon is the bridge between your Proxmox and our cloud layer. The app continues to use direct API for everything else.</p>
 
   <h3>What goes to Supabase (EU-hosted)</h3>
   <ul>
@@ -107,7 +107,7 @@
   <p>Operational data in Supabase is automatically deleted after <strong>30 days</strong>. Push tokens are retained while you subscribe and deleted immediately on unsubscribe.</p>
 
   <h3>Your control</h3>
-  <p>Stopping <code>proxmoxvued</code> stops all cloud functionality immediately. The daemon runs on a host you own, auditable via SSH and your own logs. All outgoing connections go to a single endpoint (our EU-hosted Supabase project), so you can restrict its egress to just that host in your own firewall — full control over where the daemon communicates.</p>
+  <p>Stopping <code>proxmoxvue-agent</code> stops all cloud functionality immediately. The daemon runs on a host you own, auditable via SSH and your own logs. All outgoing connections go to a single endpoint (our EU-hosted Supabase project), so you can restrict its egress to just that host in your own firewall — full control over where the daemon communicates.</p>
 
   <h2>What we collect as a company</h2>
   <p>We keep collection minimal:</p>

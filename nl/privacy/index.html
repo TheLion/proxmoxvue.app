@@ -78,7 +78,7 @@
   <p>In directe modus wordt niets namens ons naar derden verstuurd.</p>
 
   <h2>Cloud-modus — wat gebeurt er als je die aanzet</h2>
-  <p>Cloud-modus is opt-in en vereist twee dingen: (1) het installeren van <code>proxmoxvued</code>, een kleine self-hosted daemon, op een Linux-machine in je homelab; en (2) een actief Cloud-abonnement. De daemon is de brug tussen je Proxmox en onze cloud-laag. De app blijft voor al het overige de directe API gebruiken.</p>
+  <p>Cloud-modus is opt-in en vereist twee dingen: (1) het installeren van <code>proxmoxvue-agent</code>, een kleine self-hosted daemon, op een Linux-machine in je homelab; en (2) een actief Cloud-abonnement. De daemon is de brug tussen je Proxmox en onze cloud-laag. De app blijft voor al het overige de directe API gebruiken.</p>
 
   <h3>Wat gaat naar Supabase (EU-hosted)</h3>
   <ul>
@@ -101,7 +101,7 @@
   <p>Operationele data in Supabase wordt automatisch verwijderd na <strong>30 dagen</strong>. Push-tokens worden bewaard zolang je abonneert en direct verwijderd bij opzeggen.</p>
 
   <h3>Jouw controle</h3>
-  <p>Als je <code>proxmoxvued</code> stopt, stopt alle cloud-functionaliteit direct. De daemon draait op een host die jij bezit, auditeerbaar via SSH en je eigen logs. Alle uitgaande verbindingen gaan naar één endpoint (ons EU-hosted Supabase-project), dus je kunt de uitgaande verbindingen in je eigen firewall beperken tot alleen die host — volledige controle over waar de daemon naartoe praat.</p>
+  <p>Als je <code>proxmoxvue-agent</code> stopt, stopt alle cloud-functionaliteit direct. De daemon draait op een host die jij bezit, auditeerbaar via SSH en je eigen logs. Alle uitgaande verbindingen gaan naar één endpoint (ons EU-hosted Supabase-project), dus je kunt de uitgaande verbindingen in je eigen firewall beperken tot alleen die host — volledige controle over waar de daemon naartoe praat.</p>
 
   <h2>Wat wij als bedrijf verzamelen</h2>
   <p>We houden het minimaal:</p>

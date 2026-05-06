@@ -84,7 +84,7 @@
   <p>Im direkten Modus werden keine Daten an Dritte in unserem Auftrag übermittelt.</p>
 
   <h2>Cloud-Modus — was bei Aktivierung passiert</h2>
-  <p>Der Cloud-Modus ist opt-in und erfordert zwei Dinge: (1) die Installation von <code>proxmoxvued</code>, einem kleinen self-hosted Daemon, auf einem Linux-Rechner in Ihrem Homelab; und (2) ein aktives Cloud-Abonnement. Der Daemon ist die Brücke zwischen Ihrem Proxmox und unserer Cloud-Schicht. Für alles Übrige nutzt die App weiterhin die direkte API.</p>
+  <p>Der Cloud-Modus ist opt-in und erfordert zwei Dinge: (1) die Installation von <code>proxmoxvue-agent</code>, einem kleinen self-hosted Daemon, auf einem Linux-Rechner in Ihrem Homelab; und (2) ein aktives Cloud-Abonnement. Der Daemon ist die Brücke zwischen Ihrem Proxmox und unserer Cloud-Schicht. Für alles Übrige nutzt die App weiterhin die direkte API.</p>
 
   <h3>Was an Supabase übermittelt wird (in der EU gehostet)</h3>
   <ul>
@@ -107,7 +107,7 @@
   <p>Operative Daten in Supabase werden automatisch nach <strong>30 Tagen</strong> gelöscht. Push-Tokens werden für die Dauer Ihres Abonnements gespeichert und unmittelbar bei Kündigung gelöscht.</p>
 
   <h3>Ihre Kontrolle</h3>
-  <p>Wird <code>proxmoxvued</code> gestoppt, endet sämtliche Cloud-Funktionalität sofort. Der Daemon läuft auf einem Host, den Sie besitzen — auditierbar via SSH und über Ihre eigenen Logs. Sämtlicher ausgehender Verkehr richtet sich an einen einzigen Endpunkt (unser EU-gehostetes Supabase-Projekt), sodass Sie den Daemon in Ihrer eigenen Firewall auf genau diesen Host beschränken können — vollständige Kontrolle darüber, wohin der Daemon kommuniziert.</p>
+  <p>Wird <code>proxmoxvue-agent</code> gestoppt, endet sämtliche Cloud-Funktionalität sofort. Der Daemon läuft auf einem Host, den Sie besitzen — auditierbar via SSH und über Ihre eigenen Logs. Sämtlicher ausgehender Verkehr richtet sich an einen einzigen Endpunkt (unser EU-gehostetes Supabase-Projekt), sodass Sie den Daemon in Ihrer eigenen Firewall auf genau diesen Host beschränken können — vollständige Kontrolle darüber, wohin der Daemon kommuniziert.</p>
 
   <h2>Was wir als Unternehmen erheben</h2>
   <p>Die Erhebung halten wir minimal:</p>

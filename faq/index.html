@@ -77,7 +77,7 @@
     <summary>What are cloud features, and how do they work?</summary>
     <div class="answer">
       <p>Cloud features are opt-in add-ons: push notifications (node offline, backup failed, VM down), remote access when you're outside your local network, and a cross-cluster aggregated dashboard across multiple Proxmox hosts.</p>
-      <p>They require <code>proxmoxvued</code>, a small self-hosted daemon you run on any Linux machine in your homelab (typically the Proxmox host itself). Install it once, and the app picks up the cloud path automatically for subscribed users. Your iPad keeps using direct API for everything else.</p>
+      <p>They require <code>proxmoxvue-agent</code>, a small self-hosted daemon you run on any Linux machine in your homelab (typically the Proxmox host itself). Install it once, and the app picks up the cloud path automatically for subscribed users. Your iPad keeps using direct API for everything else.</p>
     </div>
   </details>
 
@@ -86,6 +86,14 @@
     <div class="answer">
       <p>No inbound firewall rules. The daemon only makes outbound connections — to one endpoint (our EU-hosted Supabase backend).</p>
       <p>You can optionally restrict its egress in your own firewall to just that one host: full control over where the daemon communicates. Since connections are daemon-initiated, no port needs to be opened on your router.</p>
+    </div>
+  </details>
+
+  <details id="agent-install">
+    <summary>Where do I get the agent, and how do I install it?</summary>
+    <div class="answer">
+      <p><code>proxmoxvue-agent</code> is open source. The repository — including build instructions, a sample <code>systemd</code> unit, and config templates — lives on GitHub: <a href="https://github.com/TheLion/proxmoxvue-agent">github.com/TheLion/proxmoxvue-agent</a>.</p>
+      <p>You only need it if you want the cloud features (push, remote access, cross-cluster view). For default direct-API use of the app, the agent is not required.</p>
     </div>
   </details>
 
@@ -132,7 +140,8 @@
   <details>
     <summary>Is the source open?</summary>
     <div class="answer">
-      <p>Not at this time. We may reconsider later.</p>
+      <p>The iPad app itself is closed source — we may reconsider later.</p>
+      <p>The cloud agent (<code>proxmoxvue-agent</code>) <strong>is</strong> open source: <a href="https://github.com/TheLion/proxmoxvue-agent">github.com/TheLion/proxmoxvue-agent</a>. You run it yourself and can audit exactly what it sends.</p>
     </div>
   </details>
 
