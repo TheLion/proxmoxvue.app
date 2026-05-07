@@ -69,7 +69,7 @@
   <details>
     <summary>Do I need a backend, a relay, or an account?</summary>
     <div class="answer">
-      <p>For default direct-API usage: no. Your iPad talks straight to your Proxmox server — no account with us, no cloud relay. If you want the optional cloud features (push, remote access, cross-cluster view), you install a small self-hosted daemon on a machine in your homelab and take out a Cloud subscription. The daemon talks to our EU-hosted Supabase backend, never exposes your Proxmox credentials, and you can filter its outgoing traffic to one endpoint in your firewall.</p>
+      <p>For default direct-API usage: no. Your iPad talks straight to your Proxmox server — no account with us, no cloud relay. If you want the optional cloud features (push, remote access, cross-cluster view), you install a small self-hosted daemon on a machine in your network and take out a Cloud subscription. The daemon talks to our EU-hosted Supabase backend, never exposes your Proxmox credentials, and you can filter its outgoing traffic to one endpoint in your firewall.</p>
     </div>
   </details>
 
@@ -77,7 +77,20 @@
     <summary>What are cloud features, and how do they work?</summary>
     <div class="answer">
       <p>Cloud features are opt-in add-ons: push notifications (node offline, backup failed, VM down), remote access when you're outside your local network, and a cross-cluster aggregated dashboard across multiple Proxmox hosts.</p>
-      <p>They require <code>proxmoxvue-agent</code>, a small self-hosted daemon you run on any Linux machine in your homelab (typically the Proxmox host itself). Install it once, and the app picks up the cloud path automatically for subscribed users. Your iPad keeps using direct API for everything else.</p>
+      <p>They require <code>proxmoxvue-agent</code>, a small self-hosted daemon. You can run it on the Proxmox host itself, on any Linux machine in the same network (a Raspberry Pi 4/5 with 64-bit OS works great), or as a Docker container — whichever fits your setup. Install it once, and the app picks up the cloud path automatically for subscribed users. Your iPad keeps using direct API for everything else.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Can I run the agent on a separate machine, a Raspberry Pi, or in Docker?</summary>
+    <div class="answer">
+      <p>Yes — all three. The agent is a single Go binary with three deployment options:</p>
+      <ul>
+        <li><strong>On your Proxmox host</strong> — simplest path, fewest moving parts. The default install uses <code>https://127.0.0.1:8006</code> for the Proxmox API.</li>
+        <li><strong>On a separate Linux machine in your network</strong> — keeps your hypervisor pristine. We ship <code>amd64</code> and <code>arm64</code> binaries, so a Raspberry Pi 4 or 5 running 64-bit Raspberry Pi OS or Ubuntu works out of the box. Older Pi 3 / 32-bit ARM (<code>armv7</code>) is not supported by the prebuilt binary. The agent reaches your Proxmox host over your LAN on port 8006.</li>
+        <li><strong>As a Docker container</strong> — same binary, configured via environment variables. See <a href="https://github.com/TheLion/proxmoxvue-agent/blob/main/docs/DOCKER.md">DOCKER.md</a> for the env-var reference and a <code>docker-compose.yml</code> example.</li>
+      </ul>
+      <p>One agent enrollment maps to one Proxmox host — for multiple hosts, run multiple instances (separate machines, or one machine with multiple containers).</p>
     </div>
   </details>
 

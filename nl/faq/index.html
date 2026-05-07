@@ -69,7 +69,7 @@
   <details>
     <summary>Heb ik een backend, relay of account nodig?</summary>
     <div class="answer">
-      <p>Voor standaard direct-API-gebruik: nee. Je iPad praat direct met je Proxmox-server — geen account bij ons, geen cloud-relay. Wil je de optionele cloud-functies (push, remote access, cross-cluster view), dan installeer je een kleine self-hosted daemon op een machine in je homelab en neem je een Cloud-abonnement. De daemon praat met onze EU-hosted Supabase-backend, geeft je Proxmox-credentials nooit door, en je kunt zijn uitgaande verkeer in je firewall beperken tot één endpoint.</p>
+      <p>Voor standaard direct-API-gebruik: nee. Je iPad praat direct met je Proxmox-server — geen account bij ons, geen cloud-relay. Wil je de optionele cloud-functies (push, remote access, cross-cluster view), dan installeer je een kleine self-hosted daemon op een machine in je netwerk en neem je een Cloud-abonnement. De daemon praat met onze EU-hosted Supabase-backend, geeft je Proxmox-credentials nooit door, en je kunt zijn uitgaande verkeer in je firewall beperken tot één endpoint.</p>
     </div>
   </details>
 
@@ -77,7 +77,20 @@
     <summary>Wat zijn cloud-functies, en hoe werken ze?</summary>
     <div class="answer">
       <p>Cloud-functies zijn opt-in add-ons: push-notificaties (node offline, backup gefaald, VM down), remote access als je buiten je lokale netwerk zit, en een cross-cluster aggregated dashboard over meerdere Proxmox-hosts.</p>
-      <p>Ze vereisen <code>proxmoxvue-agent</code>, een kleine self-hosted daemon die je op een willekeurige Linux-machine in je homelab draait (vaak de Proxmox-host zelf). Eenmalig installeren en de app pakt het cloud-pad automatisch op voor geabonneerde users. Je iPad blijft direct-API gebruiken voor al het andere.</p>
+      <p>Ze vereisen <code>proxmoxvue-agent</code>, een kleine self-hosted daemon. Je draait hem op de Proxmox-host zelf, op een willekeurige Linux-machine in hetzelfde netwerk (een Raspberry Pi 4/5 met 64-bit OS werkt prima), of als Docker-container — wat het beste bij je setup past. Eenmalig installeren en de app pakt het cloud-pad automatisch op voor geabonneerde users. Je iPad blijft direct-API gebruiken voor al het andere.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Kan ik de agent op een aparte machine, een Raspberry Pi of in Docker draaien?</summary>
+    <div class="answer">
+      <p>Ja — alle drie. De agent is een enkele Go-binary met drie deployment-opties:</p>
+      <ul>
+        <li><strong>Op je Proxmox-host</strong> — simpelste optie, minste bewegende delen. De standaardinstall gebruikt <code>https://127.0.0.1:8006</code> voor de Proxmox-API.</li>
+        <li><strong>Op een aparte Linux-machine in je netwerk</strong> — houdt je hypervisor schoon. We leveren <code>amd64</code>- en <code>arm64</code>-binaries, dus een Raspberry Pi 4 of 5 met 64-bit Raspberry Pi OS of Ubuntu werkt direct. Oudere Pi 3 / 32-bit ARM (<code>armv7</code>) wordt niet ondersteund door de meegeleverde binary. De agent bereikt je Proxmox-host over je LAN op poort 8006.</li>
+        <li><strong>Als Docker-container</strong> — zelfde binary, geconfigureerd via environment variables. Zie <a href="https://github.com/TheLion/proxmoxvue-agent/blob/main/docs/DOCKER.md">DOCKER.md</a> voor de env-var reference en een <code>docker-compose.yml</code>-voorbeeld.</li>
+      </ul>
+      <p>Eén agent-enrollment is gekoppeld aan één Proxmox-host — voor meerdere hosts draai je meerdere instances (aparte machines, of één machine met meerdere containers).</p>
     </div>
   </details>
 
